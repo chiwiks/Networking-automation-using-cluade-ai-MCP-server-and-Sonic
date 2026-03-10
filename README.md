@@ -1,0 +1,2 @@
+# Networking-automation-using-cluade-ai-MCP-server-and-Sonic
+Networking automation using MCP server and Sonic. The topology is made of spine and leaf routers running sonic with vxlan configuration. After bringing up the topology. Run broadband sonic on all the routers and configure the spine leaf with vxlan. Connect mcp server using claude ai and left claude ai run show commands and push configurations.
