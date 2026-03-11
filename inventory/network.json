@@ -1,0 +1,8 @@
+
+
+
+{
+  "Spine": { "host": "192.168.108.20", "device_type": "dell_sonic" },
+  "Leaf1": { "host": "192.168.108.30", "device_type": "dell_sonic" },
+  "Leaf2": { "host": "192.168.108.10", "device_type": "dell_sonic"}
+}
