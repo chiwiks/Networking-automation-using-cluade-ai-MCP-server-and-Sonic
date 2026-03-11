@@ -80,7 +80,13 @@ Spine/ Leaf vxlan evpn configuration with BGP underlay. Vlan 10 and 11 are L2 VN
 
 - [x] Test McP Server with your topology
 ---
-Connect the mcp server and run the following command on Claude "can you check the vxlan tunnel between leaf1 and leaf2 and the vrf configured". Claude connects to your topology and pulls the following result
+- Connect the mcp server and run the following command on Claude "can you check the vxlan tunnel between leaf1 and leaf2 and the vrf configured". Claude connects to your topology and pulls the following result. Claude used "run_show" to pull the figure by pushing show commands like "show vxlan tunnel"
+
+---
+<img width="1232" height="508" alt="Image" src="https://github.com/user-attachments/assets/c90daa6c-4b0e-457a-b59a-93b7bfa15b0e" />
+
+- Next send command "add description "furtue use" to interface ethernet40 of leaf2". Claude uses "push_config" function to push configuration on interface Ethernet40 of Leaf2
+
 
 
       
