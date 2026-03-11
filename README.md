@@ -36,6 +36,14 @@ This project combines **GNS3** with **Broadcom SONiC routers**, **Claude AI**, a
 - Alpine Linux
 - VS Code
 
+## 🚀 Getting Started
+
+1. **Deploy GNS3 topology** with SONiC images
+2. **Create inventory** JSON file with your router details
+3. **Configure SONiC devices** with VXLAN EVPN and BGP
+4. **Set up MCP server** with the provided Python script
+5. **Register with Claude** using the MCP add command
+6. **Start automating** via natural language queries!
 ## 🛠️ Project Steps
 
 ### 1️⃣ Inventory Configuration
@@ -67,7 +75,7 @@ The topology consists of:
 
 Configure spine and leaf routers with VXLAN EVPN and BGP underlay:
 - **VLAN 10 & 11**: Layer 2 VNI (L2 overlay)
-- **VLAN 200**: Layer 3 VNI (L3 overlay)
+- **VLAN 2000**: Layer 3 VNI (L3 overlay)
 - **BGP**: Underlay routing protocol
 
 Full configuration details are available in the `sonic_vxlan.txt` file.
@@ -138,19 +146,4 @@ Claude will:
 
 ![Configuration Update Result](https://github.com/user-attachments/assets/14cabc7f-bf29-4ab7-90aa-1a7991ebc2b9)
 
-## 🚀 Getting Started
 
-1. **Deploy GNS3 topology** with SONiC images
-2. **Create inventory** JSON file with your router details
-3. **Configure SONiC devices** with VXLAN EVPN and BGP
-4. **Set up MCP server** with the provided Python script
-5. **Register with Claude** using the MCP add command
-6. **Start automating** via natural language queries!
-
-## 📝 License
-
-[Add your license information here]
-
-## 🤝 Contributing
-
-Contributions are welcome! Please submit issues and pull requests.
