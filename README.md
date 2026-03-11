@@ -37,23 +37,14 @@ The main tools and technologies used for building the project:
 - [x] VS Code
 
 ## Project Steps
-- [x] The topology 
 
---- 
-Consists of one Broadcom Spine connected to two Broadcom Leafs with two Alpine Linux connected to the each Leaf
 
+- [x] Inventory
 ---
-![topology](sonic vlxan with mcp.png.png)
-
-- [x] Configuration
----
-Spine/ Leaf vxlan evpn configuration with BGP underlay. Vlan 10 and 11 are L2 VNI with vlan 200 is L3 VNI. The configuration file can befound at sonic_vxlan.conf file
-
----
-
-
-- [x]  Create the newtwork json inventory file containing the spine and leaf routers and their types. Netmiko reconiges two types of Sonic Dell sonic which works the same for Broadcom and Edgesonic that uses Community Sonic. If you choose Dell sonic connection goes straight to Dell or Broadcom CLI interface. If you choose Edgesonic, Netmiko thats connections to the linux interface
+Newtwork json inventory file consists of  the spine and leaf routers and their types. 
+Note: Netmiko reconizes two types of Sonic Dell sonic which works the same for Broadcom and Edgesonic that uses Community Sonic. If you choose Dell sonic connection goes straight to Dell or Broadcom CLI interface. If you choose Edgesonic, Netmiko connects to the sonic linux interface
 ```
+---
 {
 	
   "Spine": { "host": "192.168.108.20", "device_type": "dell_sonic" },
@@ -62,5 +53,34 @@ Spine/ Leaf vxlan evpn configuration with BGP underlay. Vlan 10 and 11 are L2 VN
 
 }
 ```
+
+- [x] The topology 
+
+--- 
+Consists of one Broadcom Spine connected to two Broadcom Leafs with two Alpine Linux connected to the each Leaf
+
+---
+![topology](topology.png)
+
+- [x] Configuration
+---
+Spine/ Leaf vxlan evpn configuration with BGP underlay. Vlan 10 and 11 are L2 VNI with vlan 200 is L3 VNI. The configuration file can be found at sonic_vxlan.txtf file
+
+---
+
+- [x] Connect MCP server to your topology
+---
+- Check for mcpserversonic.py 
+- The mcp sever python script that connects Claude ai to your gns3 topology is found mcpserversonic.py file. 
+- The script consists of importing FASTMCP and two async functions. "run_show" handles the "show commands" the ai uses to check status of network."Push_config" is async function that Claude uses to push configurations on the routers.
+- The script uses Netmiko with ssh to connect to all there routers.
+- By default broadcom sonic routers come with ssh enabled
+
+----
+
+- [x] Test McP Server with your topology
+---
+Connect the mcp server and run the following command on Claude "can you check the vxlan tunnel between leaf1 and leaf2 and the vrf configured". Claude connects to your topology and pulls the following result
+
 
       
