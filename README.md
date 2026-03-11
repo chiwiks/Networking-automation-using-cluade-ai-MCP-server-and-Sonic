@@ -70,7 +70,7 @@ Spine/ Leaf vxlan evpn configuration with BGP underlay. Vlan 10 and 11 are L2 VN
 
 - [x] Connect MCP server to your topology
 ---
-- Check for mcpserversonic.py and connect 
+- - connect your scripti to mcpserver using command 'claude mcp add mcpsonic_automation -s user -- "<mcpserverlocation>" "<name0fyourpythonscript>"'
 - The mcp sever python script that connects Claude ai to your gns3 topology is found mcpserversonic.py file. 
 - The script consists of importing FASTMCP and two async functions. "run_show" handles the "show commands" the ai uses to check status of network."Push_config" is async function that Claude uses to push configurations on the routers.
 - The script uses Netmiko with ssh to connect to all there routers.
