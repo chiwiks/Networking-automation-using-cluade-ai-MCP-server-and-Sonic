@@ -36,6 +36,7 @@ The main tools and technologies used for building the project:
 - [x] Alpine Linux
 - [x] VS Code
 
+## Project Steps
 - [x] The topology 
 
 --- 
