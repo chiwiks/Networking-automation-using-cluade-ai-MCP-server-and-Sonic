@@ -1,0 +1,299 @@
+---------------------------------
+leaf2
+---------------------------------
+
+interface Vlan10
+ description "Green-Servers VLAN"
+ ip vrf forwarding Vrf1
+ ip anycast-address 10.1.1.254/24
+!
+interface Vlan11
+ description "Red-Servers VLAN"
+ ip vrf forwarding Vrf1
+ ip anycast-address 11.1.1.254/24
+!
+interface Vlan2000
+ description "IRB VLAN"
+ ip vrf forwarding Vrf1
+ ipv6 enable
+!
+interface Loopback 0
+ ip address 192.168.1.3/32
+!
+interface Loopback 1
+ description "source ip for VXLAN interface"
+ ip address 100.2.2.2/32
+
+interface Loopback 0
+ ip address 192.168.1.3/32
+!
+interface Loopback 1
+ description "source ip for VXLAN interface"
+ ip address 100.2.2.2/32
+
+
+interface Ethernet0
+ description "Link to EndPoint-2"
+ mtu 9100
+ speed 25000
+ fec none
+ no shutdown
+ switchport access Vlan 10
+!
+interface Ethernet1
+ mtu 9100
+ speed 25000
+ fec none
+ no shutdown
+ ip address 192.168.108.10/24
+!
+interface Ethernet2
+ mtu 9100
+ speed 25000
+ fec none
+ no shutdown
+ switchport access Vlan 11
+ 
+
+router bgp 65102 vrf Vrf1
+ router-id 192.168.0.3
+ log-neighbor-changes
+ timers 60 180
+ !
+ address-family ipv4 unicast
+  redistribute connected
+  maximum-paths 1
+  maximum-paths ibgp 1
+  dampening
+ !
+ address-family l2vpn evpn
+  advertise ipv4 unicast
+!
+router bgp 65102
+ router-id 192.168.1.3
+ log-neighbor-changes
+ timers 60 180
+ !
+ address-family ipv4 unicast
+  redistribute connected
+  maximum-paths 1
+  maximum-paths ibgp 1
+  dampening
+ !
+ address-family l2vpn evpn
+  advertise-all-vni
+ !
+ neighbor 1.1.1.2
+  remote-as 65000
+  !
+  address-family ipv4 unicast
+   activate
+  !
+  address-family l2vpn evpn
+   activate
+!
+ interface vxlan vtep1
+ source-ip 100.2.2.2
+ map vni 100010 vlan 10
+ map vni 100011 vlan 11
+ map vni 200000 vlan 2000
+ map vni 200000 vrf Vrf1
+!
+---------------------------------------
+Spine:
+----------------------------------------
+
+
+interface Ethernet0
+ description "Link to Leaf-1"
+ mtu 9100
+ speed 25000
+ fec none
+ no shutdown
+ ip address 1.1.1.1/31
+!
+interface Ethernet1
+ mtu 9100
+ speed 25000
+ fec none
+ no shutdown
+ ip address 192.168.108.20/24
+!
+
+interface Loopback 0
+ ip address 192.168.1.2/32
+!
+
+interface Ethernet0
+ description "Link to Leaf-1"
+ mtu 9100
+ speed 25000
+ fec none
+ no shutdown
+ ip address 1.1.1.1/31
+!
+interface Ethernet1
+ mtu 9100
+ speed 25000
+ fec none
+ no shutdown
+ ip address 192.168.108.20/24
+!
+
+interface Ethernet4
+ description "Link to Leaf-2"
+ mtu 9100
+ speed 25000
+ fec none
+ no shutdown
+ ip address 1.1.1.2/31
+!
+
+
+router bgp 65000
+ router-id 192.168.1.2
+ log-neighbor-changes
+ timers 60 180
+ !
+ address-family ipv4 unicast
+  redistribute connected
+  maximum-paths 1
+  maximum-paths ibgp 1
+  dampening
+ !
+ address-family l2vpn evpn
+ !
+ neighbor 1.1.1.0
+  remote-as 65101
+  !
+  address-family ipv4 unicast
+   activate
+  !
+  address-family l2vpn evpn
+   activate
+ !
+ neighbor 1.1.1.3
+  remote-as 65102
+  !
+  address-family ipv4 unicast
+   activate
+  !
+  address-family l2vpn evpn
+   activate
+!
+----------------------------------------------
+leaf1
+----------------------------------------------
+interface Vlan10
+ description "Green-Servers VLAN"
+ ip vrf forwarding Vrf1
+ ip anycast-address 10.1.1.254/24
+!
+interface Vlan11
+ description "Red-Servers VLAN"
+ ip vrf forwarding Vrf1
+ ip anycast-address 11.1.1.254/24
+!
+interface Vlan2000
+ description "IRB VLAN"
+ ip vrf forwarding Vrf1
+ ipv6 enable
+!
+interface Loopback 0
+ ip address 192.168.1.1/32
+!
+interface Loopback 1
+ description "source ip for VXLAN interface"
+ ip address 100.1.1.1/32
+!
+
+
+interface Loopback 0
+ ip address 192.168.1.1/32
+!
+interface Loopback 1
+ description "source ip for VXLAN interface"
+ ip address 100.1.1.1/32
+!
+
+!
+interface Ethernet0
+ description "Link to Spine101"
+ mtu 9100
+ speed 25000
+ fec none
+ no shutdown
+ ip address 1.1.1.0/31
+!
+interface Ethernet1
+ mtu 9100
+ speed 25000
+ fec none
+ no shutdown
+ ip address 192.168.108.30/24
+!
+
+!
+interface Ethernet4
+ mtu 9100
+ speed 25000
+ fec none
+ no shutdown
+ switchport access Vlan 10
+!
+interface Ethernet5
+ mtu 9100
+ speed 25000
+ fec none
+ no shutdown
+ switchport access Vlan 11
+
+
+router bgp 65101 vrf Vrf1
+ router-id 192.168.0.1
+ log-neighbor-changes
+ timers 60 180
+ !
+ address-family ipv4 unicast
+  redistribute connected
+  maximum-paths 1
+  maximum-paths ibgp 1
+  dampening
+ !
+ address-family l2vpn evpn
+  advertise ipv4 unicast
+!
+router bgp 65101
+ router-id 192.168.1.1
+ log-neighbor-changes
+ timers 60 180
+ !
+ address-family ipv4 unicast
+  redistribute connected
+  maximum-paths 1
+  maximum-paths ibgp 1
+  dampening
+ !
+ address-family l2vpn evpn
+  advertise-all-vni
+ !
+ neighbor 1.1.1.1
+  remote-as 65000
+  !
+  address-family ipv4 unicast
+   activate
+  !
+  address-family l2vpn evpn
+   activate
+!
+interface vxlan vtep1
+ source-ip 100.1.1.1
+ map vni 100010 vlan 10
+ map vni 100011 vlan 11
+ map vni 200000 vlan 2000
+ map vni 200000 vrf Vrf1
+!
+
+
+
+
