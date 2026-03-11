@@ -70,7 +70,7 @@ Spine/ Leaf vxlan evpn configuration with BGP underlay. Vlan 10 and 11 are L2 VN
 
 - [x] Connect MCP server to your topology
 ---
-- Check for mcpserversonic.py 
+- Check for mcpserversonic.py and connect 
 - The mcp sever python script that connects Claude ai to your gns3 topology is found mcpserversonic.py file. 
 - The script consists of importing FASTMCP and two async functions. "run_show" handles the "show commands" the ai uses to check status of network."Push_config" is async function that Claude uses to push configurations on the routers.
 - The script uses Netmiko with ssh to connect to all there routers.
@@ -85,8 +85,11 @@ Spine/ Leaf vxlan evpn configuration with BGP underlay. Vlan 10 and 11 are L2 VN
 ---
 <img width="1232" height="508" alt="Image" src="https://github.com/user-attachments/assets/c90daa6c-4b0e-457a-b59a-93b7bfa15b0e" />
 
+
+
 - Next send command "add description "furtue use" to interface ethernet40 of leaf2". Claude uses "push_config" function to push configuration on interface Ethernet40 of Leaf2
 
+<img width="629" height="185" alt="Image" src="https://github.com/user-attachments/assets/14cabc7f-bf29-4ab7-90aa-1a7991ebc2b9" />
 
 
       
