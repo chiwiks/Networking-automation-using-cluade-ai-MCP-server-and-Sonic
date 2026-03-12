@@ -117,7 +117,21 @@ async def push_config(device: str, commands: list) -> str:
 
 ### 5️⃣ Test the MCP Server
 
-#### Example Query 1: Check VXLAN Tunnel Status
+#### Example Query 1: Check connection and version of Spine
+
+Send this command to Claude:
+```
+Check if you can connect to Spine Router?
+```
+
+Claude will:
+- Connect to your topology via the MCP server
+- Execute `show version` and related commands
+- Return detailed results
+
+![Spine Query Result](https://github.com/user-attachments/assets/b61c6b48-ca5e-4cdd-b95e-e14947e7db77)
+
+#### Example Query 2: Check VXLAN Tunnel Status
 
 Send this command to Claude:
 ```
@@ -131,7 +145,7 @@ Claude will:
 
 ![VXLAN Query Result](https://github.com/user-attachments/assets/c90daa6c-4b0e-457a-b59a-93b7bfa15b0e)
 
-#### Example Query 2: Update Device Configuration
+#### Example Query 3: Update Device Configuration
 
 Send this command to Claude:
 ```
